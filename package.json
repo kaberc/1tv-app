@@ -1,7 +1,7 @@
 {
   "name": "1tv-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "Simple electron wrapper for 1tv.ru player",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
