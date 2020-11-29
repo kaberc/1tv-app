@@ -12,10 +12,10 @@ on:
 jobs:
   build:
     name: Build for ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}-latest
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ubuntu, windows, macOS]
 
     steps:
     - uses: actions/checkout@v2
@@ -26,7 +26,7 @@ jobs:
     - run: npm ci
     - run: npm run make
     - name: Upload artifacts
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v2
       with:
-        name: macOS-app
-        path: out/make/zip/darwin/x64/1tv-app-darwin-*.zip
+        name: ${{ matrix.os }}-app
+        path: out/**/*
