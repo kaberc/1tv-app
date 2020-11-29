@@ -11,18 +11,22 @@ on:
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
-
+    name: Build for ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node-version: [12.x]
+        os: [ubuntu-latest, windows-latest, macOS-latest]
 
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Setup Node.js
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: '12'
     - run: npm ci
     - run: npm run make
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: macOS-app
+        path: out/make/zip/darwin/x64/1tv-app-darwin-*.zip
